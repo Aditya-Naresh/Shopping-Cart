@@ -34,7 +34,7 @@ router.get('/', function(req, res, next) {
       image:"https://imgs.search.brave.com/3IHUbPq2F4rFCWEpLqFNYxgo3hJmJ1U57x3ErFwfyVc/rs:fit:695:225:1/g:ce/aHR0cHM6Ly90c2Uz/Lm1tLmJpbmcubmV0/L3RoP2lkPU9JUC53/NzFlemk5XzQ2RjlP/VzRtaHo1aHJnSGFG/RCZwaWQ9QXBp"  
      },
   ]
-  res.render('index', { products });
+  res.render('index', { products,admin:false });
 });
 
 module.exports = router;
