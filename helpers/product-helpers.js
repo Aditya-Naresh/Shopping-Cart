@@ -37,7 +37,8 @@ module.exports={
 
     updateProduct: (proId,proDetails) => {
         return new Promise((resolve,reject) =>{
-            db.get().collection(collection.PRODUCT_COLLECTION).findOneAndUpdate({_id:objectId(proId)},{
+            db.get().collection(collection.PRODUCT_COLLECTION)
+            .updateOne({_id:objectId(proId)},{
                 $set:{
                     Name:proDetails.Name,
                     Description: proDetails.Description,
