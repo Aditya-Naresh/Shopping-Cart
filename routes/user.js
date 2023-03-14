@@ -85,8 +85,21 @@ router.get('/add-to-cart/:id',verifyLogin,(req,res)=>{
 router.post('/change-product-quantity',(req,res,next) => {
   console.log(req.body);
   userHelpers.changeProductQuantity(req.body).then(() => {
-
+     res.json(response)
   })
+})
+
+router.post('/remove-product',(req,res,next)=>{
+  userHelpers.removeProduct(req.body).then(()=>{
+    res.json(response)
+  })
+})
+
+
+router.get('/place-order', verifyLogin, async(req,res,next)=>{
+ let total = await userHelpers.getTotalAmount(req.session.user._id)
+  
+ res.render('user/place-order',{total})
 })
 
 
