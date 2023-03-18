@@ -127,7 +127,6 @@ router.get('/orders',async(req,res)=>{
 
 router.get('/view-order-products/:id',async(req,res)=>{
   let products = await userHelpers.getOrderProducts(req.params.id)
-  console.log(req.session.user);
   console.log(products);
   res.render('user/view-order-products',{user:req.session.user,products})
 })
