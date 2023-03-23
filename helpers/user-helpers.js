@@ -214,7 +214,13 @@ module.exports = {
 
 
             ]).toArray()
-            resolve(total[0].total)
+            if (total.length > 0 && total[0].total !== undefined) {
+                console.log("Total: " + total[0].total);
+                resolve(total[0].total);
+            } else {
+                reject(new Error("No items in cart"));
+            }
+    
         })
     },
 
@@ -300,7 +306,7 @@ module.exports = {
     generateRazorpay: (orderId, total) => {
         return new Promise((resolve, reject) => {
             var options = {
-                amount: total,
+                amount: total*100,
                 currency: "INR",
                 receipt: ""+ orderId
             }
@@ -320,7 +326,7 @@ module.exports = {
             const crypto = require('crypto')
             let hmac = crypto.createHmac('sha256', 'vJRCVbpeZm0IwKvnadEvw13D')
 
-            hmac.update(details['payment[razorpay_order_id]'+'|'+details['payment[razorpay_payment_id]']])
+            hmac.update(details['payment[razorpay_order_id]']+ '|' +details['payment[razorpay_payment_id]'])
 
             hmac = hmac.digest('hex')
 
