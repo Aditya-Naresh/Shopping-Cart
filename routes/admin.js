@@ -1,6 +1,14 @@
 var express = require('express');
 var router = express.Router();
-var productHelpers = require('../helpers/product-helpers')
+var productHelpers = require('../helpers/product-helpers');
+
+const verifyLogin = (req,res,next) => {
+  if(req.session.admin && req.session.admin.loggedIn){
+    next()
+  }else{
+    res.redirect('/login')
+  }
+}
 
 /* GET users listing. */
 router.get('/', function(req, res, next) {
@@ -55,5 +63,33 @@ router.post('/edit-product/:id',(req,res)=>{
     }
   })
 })
+
+
+// router.get('/login',(req,res)=>{
+//   if(req.session.admin?.loggedIn){
+//     res.redirect('/')
+//   }else{
+//     res.render('admin/login',{"loginErr":req.session.adminLoginErr})
+//     req.session.adminLoginErr = false
+//   }
+// })
+
+
+// router.post('/login',(req,res)=>{
+//   adminHelpers.doLogin(req.body).then((response)=>{
+//     if(response.status){
+//       req.session.admin = response.admin
+//       req.session.admin.loggedIn = true
+
+//       res.redirect('/')
+//     }else{
+//       req.session.adminLoginErr = "Invalid admin and Password"
+//       res.redirect('/login')
+//     }
+//   })
+// })
+
+
+
 
 module.exports = router;
